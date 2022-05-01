@@ -1,7 +1,9 @@
 const http = require('http');
+const fs = require('fs');
 
 const server = http.createServer((req, res) => {
   const url = req.url;
+  const method = req.method;
 
   if (url === '/') {
     res.write(
@@ -18,6 +20,13 @@ const server = http.createServer((req, res) => {
         `
     );
     return res.end(); // To return from this before executing the next steps / res.end()
+  }
+
+  if (url === '/message' && method === 'POST') {
+    fs.writeFileSync('message.txt', 'Dummy text'); // creates a file with the given data
+    res.statusCode = 302;
+    res.setHeader('Location', '/');
+    return res.end();
   }
 
   res.setHeader('Content-Type', 'text/html');
