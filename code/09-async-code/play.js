@@ -1,6 +1,15 @@
+const fetchData = (callback) => {
+  setTimeout(() => {
+    callback('Done!');
+  }, 1500);
+};
+
 setTimeout(() => {
   console.log('Timer is done!');
-}, 1);
+  fetchData((text) => {
+    console.log(text);
+  });
+}, 2000);
 
 console.log('Hello');
 console.log('Hi');
