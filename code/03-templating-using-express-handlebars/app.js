@@ -6,8 +6,8 @@ const expressHandlebars = require('express-handlebars');
 
 const app = express();
 
-app.engine('handlebars', expressHandlebars());
-app.set('view engine', 'handlebars');
+app.engine('hbs', expressHandlebars());
+app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 const adminData = require('./routes/admin');
