@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   const products = adminData.products;
-  res.render('shop', { docTitle: 'My Shop', prods: products });
+  res.render('shop', { pageTitle: 'My Shop', prods: products });
 });
 
 module.exports = router;
