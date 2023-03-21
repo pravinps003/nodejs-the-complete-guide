@@ -1,7 +1,5 @@
 <main>
   {{#if hasProducts}}
-    <h1>My Products</h1>
-    <p>List of all the products...</p>
     <div class='grid'>
       {{#each prods}}
         <article class='card product-item'>
@@ -26,6 +24,6 @@
       {{/each}}
     </div>
   {{else}}
-    <h1>No Products</h1>
+    <h1>No Products Found!</h1>
   {{/if}}
 </main>
