@@ -54,7 +54,7 @@ sequelize
     if (!user) {
       return User.create({ name: 'Pravin', email: 'test@ps003.com' });
     }
-    return Promise.resolve(user);
+    return user;
   })
   .then((user) => {
     return user.createCart();
