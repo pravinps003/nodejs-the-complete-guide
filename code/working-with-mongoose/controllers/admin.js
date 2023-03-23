@@ -67,6 +67,8 @@ exports.postEditProduct = (req, res, next) => {
 
 exports.getProducts = (req, res, next) => {
   Product.find()
+    // .select('title price -_id') // returns selected field from product model, '-' to avoid
+    // .populate('userId', 'name') // populates related fields from user model, second param to select field
     .then((products) => {
       res.render('admin/products', {
         prods: products,
