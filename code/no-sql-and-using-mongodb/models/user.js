@@ -4,8 +4,8 @@ const { getDb } = require('../util/database');
 const ObjectId = mongodb.ObjectId;
 
 class User {
-  constructor(username, email, cart, id) {
-    this.username = username;
+  constructor(name, email, cart, id) {
+    this.name = name;
     this.email = email;
     this.cart = cart;
     this._id = id;
@@ -85,9 +85,17 @@ class User {
 
   addOrder() {
     const db = getDb();
-    return db
-      .collection('orders')
-      .insertOne(this.cart)
+    return this.getCart()
+      .then((products) => {
+        const order = {
+          items: products,
+          user: {
+            _id: new ObjectId(this._id),
+            name: this.name,
+          },
+        };
+        return db.collection('orders').insertOne(order);
+      })
       .then((result) => {
         this.cart = { items: [] };
         return db
@@ -100,6 +108,11 @@ class User {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  getOrders() {
+    const db = getDb();
+    return db.collection('orders');
   }
 
   static findById(userId) {
