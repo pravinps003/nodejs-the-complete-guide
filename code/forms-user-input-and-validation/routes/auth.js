@@ -27,12 +27,12 @@ router.post(
     check('email')
       .isEmail()
       .withMessage('Please enter a valid email.')
-      .custom((value, { req }) => {
+      .custom((email, { req }) => {
         // if (value === 'ps003@ps003.com') {
         //   throw new Error('This email address is forbidden.');
         // }
         // return true;
-        return User.findOne({ email: req.body.email }).then((existingUser) => {
+        return User.findOne({ email }).then((existingUser) => {
           if (existingUser) {
             return Promise.reject(
               'Email exists already, please pick a different one.'
@@ -46,8 +46,8 @@ router.post(
     )
       .isLength({ min: 5 })
       .isAlphanumeric(),
-    body('confirmPassword').custom((value, { req }) => {
-      if (value !== req.body.password) {
+    body('confirmPassword').custom((confirmPassword, { req }) => {
+      if (confirmPassword !== req.body.password) {
         throw new Error('Passwords have to match!');
       }
       return true;
