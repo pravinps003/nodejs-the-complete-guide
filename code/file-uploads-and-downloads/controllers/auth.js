@@ -132,12 +132,12 @@ exports.postSignup = (req, res, next) => {
     })
     .then((result) => {
       res.redirect('/login');
-      return transporter.sendMail({
-        to: email,
-        from: 'shop@ps003.com',
-        subject: 'Sign Up successful!',
-        html: '<h1>You signed up successfully!</h1>',
-      });
+      // return transporter.sendMail({
+      //   to: email,
+      //   from: 'shop@ps003.com',
+      //   subject: 'Sign Up successful!',
+      //   html: '<h1>You signed up successfully!</h1>',
+      // });
     })
     .catch((err) => {
       const error = new Error(err);
@@ -189,15 +189,15 @@ exports.postReset = (req, res, next) => {
       })
       .then((result) => {
         res.redirect('/');
-        transporter.sendMail({
-          to: email,
-          from: 'shop@ps003.com',
-          subject: 'Password Reset!',
-          html: `
-            <p>You requested a password reset.</p>
-            <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
-          `,
-        });
+        // transporter.sendMail({
+        //   to: email,
+        //   from: 'shop@ps003.com',
+        //   subject: 'Password Reset!',
+        //   html: `
+        //     <p>You requested a password reset.</p>
+        //     <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
+        //   `,
+        // });
       })
       .catch((err) => {
         const error = new Error(err);
