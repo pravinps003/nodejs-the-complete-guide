@@ -85,35 +85,24 @@ exports.postSignup = (req, res, next) => {
       errorMessage: errors.array()[0].msg,
     });
   }
-  User.findOne({ email })
-    .then((existingUser) => {
-      if (existingUser) {
-        req.flash(
-          'error',
-          'Email exists already, please pick a different one.'
-        );
-        return res.redirect('/signup');
-      }
-      return bcrypt
-        .hash(password, 12)
-        .then((hashedPassword) => {
-          const user = new User({
-            email,
-            password: hashedPassword,
-            cart: { items: [] },
-          });
-          return user.save();
-        })
-        .then((result) => {
-          res.redirect('/login');
-          return transporter.sendMail({
-            to: email,
-            from: 'shop@ps003.com',
-            subject: 'Sign Up successful!',
-            html: '<h1>You signed up successfully!</h1>',
-          });
-        })
-        .catch((err) => console.log(err));
+  bcrypt
+    .hash(password, 12)
+    .then((hashedPassword) => {
+      const user = new User({
+        email,
+        password: hashedPassword,
+        cart: { items: [] },
+      });
+      return user.save();
+    })
+    .then((result) => {
+      res.redirect('/login');
+      return transporter.sendMail({
+        to: email,
+        from: 'shop@ps003.com',
+        subject: 'Sign Up successful!',
+        html: '<h1>You signed up successfully!</h1>',
+      });
     })
     .catch((err) => console.log(err));
 };
