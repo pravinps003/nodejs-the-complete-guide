@@ -32,7 +32,7 @@ router.post(
         //   throw new Error('This email address is forbidden.');
         // }
         // return true;
-        return User.findOne({ email }).then((existingUser) => {
+        return User.findOne({ email: req.body.email }).then((existingUser) => {
           if (existingUser) {
             return Promise.reject(
               'Email exists already, please pick a different one.'
