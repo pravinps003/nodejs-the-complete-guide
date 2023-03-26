@@ -152,6 +152,12 @@ exports.getInvoice = (req, res, next) => {
     if (err) {
       return next(err);
     }
+    res.setHeader('Content-Type', 'application/pdf');
+    // Downloads the file as attachment with file name and proper extension
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename="' + invoiceName + '"'
+    );
     res.send(data);
   });
 };
