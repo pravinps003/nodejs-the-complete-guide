@@ -15,7 +15,22 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
   const { title, description, price } = req.body;
-  const imageUrl = req.file;
+  const image = req.file;
+  if (!image) {
+    return res.status(422).render('admin/edit-product', {
+      pageTitle: 'Add Product',
+      path: '/admin/add-product',
+      editing: false,
+      product: {
+        title,
+        price,
+        description,
+      },
+      hasError: true,
+      errorMessage: 'Attached file is not an image.',
+      validationErrors: [],
+    });
+  }
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render('admin/edit-product', {
@@ -24,7 +39,6 @@ exports.postAddProduct = (req, res, next) => {
       editing: false,
       product: {
         title,
-        imageUrl,
         price,
         description,
       },
@@ -33,6 +47,9 @@ exports.postAddProduct = (req, res, next) => {
       validationErrors: errors.array(),
     });
   }
+
+  const imageUrl = image.path;
+
   const product = new Product({
     title,
     price,
@@ -82,7 +99,8 @@ exports.getEditProduct = (req, res, next) => {
 
 exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  const { title, imageUrl, description, price } = req.body;
+  const { title, description, price } = req.body;
+  const image = req.file;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render('admin/edit-product', {
@@ -91,7 +109,6 @@ exports.postEditProduct = (req, res, next) => {
       editing: true,
       product: {
         title,
-        imageUrl,
         price,
         description,
         _id: prodId,
@@ -109,7 +126,9 @@ exports.postEditProduct = (req, res, next) => {
       product.title = title;
       product.price = price;
       product.description = description;
-      product.imageUrl = imageUrl;
+      if (image) {
+        product.imageUrl = image.path;
+      }
       return product
         .save()
         .then((result) => {
