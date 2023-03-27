@@ -22,7 +22,7 @@ app.use('/feed', feedRoutes);
 
 mongoose
   .connect(
-    'mongodb+srv://ps003:mongops003@cluster0.rcwfq.mongodb.net/network?retryWrites=true&w=majority'
+    'mongodb+srv://ps003:mongops003@cluster0.rcwfq.mongodb.net/messages?retryWrites=true&w=majority'
   )
   .then((result) => app.listen(8080))
   .catch((err) => console.log(err));
