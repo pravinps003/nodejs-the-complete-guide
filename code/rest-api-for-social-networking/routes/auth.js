@@ -9,7 +9,7 @@ const router = express.Router();
 router.put(
   '/signup',
   [
-    body(email)
+    body('email')
       .isEmail()
       .withMessage('Please enter a valid email.')
       .custom((email, { req }) => {
