@@ -46,15 +46,15 @@ exports.login = async (req, res, next) => {
     }
     const token = jwt.sign(
       {
-        email: loadedUser.email,
-        userId: loadedUser._id.toString(),
+        email: user.email,
+        userId: user._id.toString(),
       },
       'somesuperdupersecret',
       { expiresIn: '1h' }
     );
     res.status(200).json({
       token,
-      userId: loadedUser._id.toString(),
+      userId: user._id.toString(),
     });
   } catch (err) {
     if (!err.statusCode) {
