@@ -80,13 +80,6 @@ class App extends Component {
       body: JSON.stringify(graphqlQuery),
     })
       .then((res) => {
-        if (res.status === 422) {
-          throw new Error('Validation failed.');
-        }
-        if (res.status !== 200 && res.status !== 201) {
-          console.log('Error!');
-          throw new Error('Could not authenticate you!');
-        }
         return res.json();
       })
       .then((resData) => {
