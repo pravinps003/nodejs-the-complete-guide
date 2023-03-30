@@ -90,7 +90,7 @@ module.exports = {
       error.code = 422;
       throw error;
     }
-    const user = User.findById(req.userId);
+    const user = await User.findById(req.userId);
     if (!user) {
       const error = new Error('Invalid user!');
       error.code = 401;
