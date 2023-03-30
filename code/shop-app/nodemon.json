@@ -1,0 +1,11 @@
+{
+  "env": {
+    "MONGO_USER": "<mongodb-user>",
+    "MONGO_PASSWORD": "<mongodb-password>",
+    "MONGO_DEFAULT_DATABASE": "<mongodb-database-name>",
+    "STRIPE_SECRET_KEY": "<stripe-secret-key>",
+    "MAILTRAP_USER": "<mailtrap-user>",
+    "MAILTRAP_PASS": "<mailtrap-pass>",
+    "PORT": 4000
+  }
+}
