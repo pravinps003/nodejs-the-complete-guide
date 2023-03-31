@@ -30,7 +30,7 @@ describe('Auth Controller', () => {
 
   afterEach(() => console.log('Running after each test case'));
 
-  it('it should throw an error with code if accessing the database fails', (done) => {
+  it('should throw an error with code if accessing the database fails', (done) => {
     sinon.stub(User, 'findOne');
     User.findOne.throws();
 
