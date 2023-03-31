@@ -18,4 +18,21 @@ describe('Auth Middleware', () => {
     };
     expect(authMiddleware.bind(this, req, {}, () => {})).to.throw();
   });
+
+  it('should throw an error if the token cannot be verified', () => {
+    const req = {
+      get: (headerName) => 'Bearer xyz',
+    };
+    expect(authMiddleware.bind(this, req, {}, () => {})).to.throw(
+      'jwt malformed'
+    );
+  });
+
+  it('should yield a userId after decoding the token', () => {
+    const req = {
+      get: (headerName) => 'Bearer aDummyValidJwtToken',
+    };
+    authMiddleware(req, {}, () => {});
+    expect(req).to.have.property('userId');
+  });
 });
