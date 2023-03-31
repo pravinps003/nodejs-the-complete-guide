@@ -2,8 +2,6 @@
 
 ## npm & Node as a Build Tool
 
----
-
 ### Beyond Node Web Servers
 
 As of now, we obviously learned a lot about node and how to write node code and build web servers or web applications with node because that really is its main thing.
@@ -13,8 +11,6 @@ But node and npm, the package manager we get for free when installing node.js ca
 We'll briefly dive into that and we'll see why that is the case, what exactly npm is and how we can use it and how we can use node as a build tool.
 
 ## npm & Node.js
-
----
 
 ### Two for the Price of One
 
@@ -29,8 +25,6 @@ We did that with npm start for example to start our server so that we don't have
 Let's have a closer look at these two pieces and see what else they can do or how that can be helpful to use them in the context of build tooling, in the context of utility scripts and not in the context of spinning up a web server.
 
 ## Using npm
-
----
 
 ### Understanding npm
 
@@ -73,8 +67,6 @@ Now these scripts actually use a third party package, so a dependency which was 
 
 ## Versioning in package.json
 
----
-
 ### Versioning in package.json
 
 When installing a package with npm install --save or --save-dev (or --save-prod, which replaces --save), we end up with entries in our package.json file, that look something like this:
@@ -87,8 +79,6 @@ We can learn about all available version annotations/ syntaxes here: https://doc
 This post on Stackoverflow provides a great summary: https://stackoverflow.com/a/25861938
 
 ## What is a Build Tool?
-
----
 
 ### Remember: Node can execute any .js file
 
@@ -118,8 +108,6 @@ That's the idea behind build tooling and now let's have a closer look at how npm
 
 ## Using Node.js in Build Processes
 
----
-
 ### Using Node.js in Build Processes
 
 So we want to end up with optimized code and again this is mostly important for frontend projects. npm is useful because we can install packages, we can manage this project with our package.json file and we can of course install packages that run in the browser too. It's our duty as a developer to ensure that we don't try to install expressjs into this project because we couldn't use any functionality from expressjs in the browser but we know as a frontend developer which packages we can use and we want to use, we find that out with research and so on and then we can install these packages and we can import them in our files with a slightly different syntax, that just happens to be primarily used frontend development, import export syntax with that es module style because that is actually the style that is supported in modern browsers too and then this is done by npm. We install the packages and now we also want to start a script with npm.
@@ -143,8 +131,6 @@ We don't need to create a web servers or anything like that,we don't need to val
 So check these resources out if that's interesting to you, I found it important to mention that this also exists and is important area where nodejs and npm are being used.
 
 ## Useful Resources & Links
-
----
 
 ### Useful Resources:
 
