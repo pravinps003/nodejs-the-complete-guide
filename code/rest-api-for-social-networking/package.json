@@ -4,7 +4,7 @@
   "description": "Testing Rest APIs for Social Networking",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --timeout 5000",
     "start": "nodemon app.js"
   },
   "author": "Pravin Shenoy",

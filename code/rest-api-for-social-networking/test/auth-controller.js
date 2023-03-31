@@ -26,7 +26,7 @@ describe('Auth Controller - Login', () => {
     User.findOne.restore();
   });
 
-  it('should send a response with a valid user status for an existin user', (done) => {
+  it('should send a response with a valid user status for an existing user', (done) => {
     mongoose
       .connect(
         'mongodb+srv://ps003:mongops003@cluster0.rcwfq.mongodb.net/test-messages?retryWrites=true&w=majority'
@@ -37,10 +37,29 @@ describe('Auth Controller - Login', () => {
           password: 'ps003',
           name: 'PS003',
           posts: [],
+          _id: '5c0f66b979af55031b34728a',
         });
         return user.save();
       })
-      .then(() => {})
+      .then(() => {
+        const req = { userId: '5c0f66b979af55031b34728a' };
+        const res = {
+          statusCode: 500,
+          userStatus: null,
+          status: function (code) {
+            this.statusCode = code;
+            return this;
+          },
+          json: function (data) {
+            this.userStatus = data.status;
+          },
+        };
+        AuthController.getUserStatus(req, res, () => {}).then(() => {
+          expect(res.statusCode).to.be.equal(200);
+          expect(res.userStatus).to.be.equal('I am new!');
+          done();
+        });
+      })
       .catch((err) => console.log(err));
   });
 });
