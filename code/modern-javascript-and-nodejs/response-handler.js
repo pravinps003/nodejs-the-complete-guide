@@ -1,10 +1,11 @@
-import fs from 'fs';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import fs from 'fs/promises';
 
 export const resHandler = (req, res, next) => {
-  res.sendFile(path.join(__dirname, 'my-page.html'));
+  fs.readFile('my-page.html', 'utf-8')
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
