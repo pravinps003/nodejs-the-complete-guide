@@ -1,5 +1,4 @@
-import { Router } from 'express';
-
+import { RequestHandler } from 'express';
 import { Todo } from '../models/todo';
 
 type RequestBody = { text: string };
@@ -7,13 +6,11 @@ type RequestParams = { todoId: string };
 
 let todos: Todo[] = [];
 
-const router = Router();
-
-router.get('/', (req, res, next) => {
+export const getTodos: RequestHandler = (req, res, next) => {
   res.status(200).json({ todos });
-});
+};
 
-router.post('/todo', (req, res, next) => {
+export const addTodo: RequestHandler = (req, res, next) => {
   const body = req.body as RequestBody;
   const newTodo: Todo = {
     id: new Date().toISOString(),
@@ -25,9 +22,9 @@ router.post('/todo', (req, res, next) => {
     todo: newTodo,
     todos,
   });
-});
+};
 
-router.put('/todo/:todoId', (req, res, next) => {
+export const updateTodo: RequestHandler = (req, res, next) => {
   const params = req.params as RequestParams;
   const { todoId } = params;
   const body = req.body as RequestBody;
@@ -45,9 +42,9 @@ router.put('/todo/:todoId', (req, res, next) => {
   res.status(404).json({
     message: 'Could not find todo for this id.',
   });
-});
+};
 
-router.delete('/todo/:todoId', (req, res, next) => {
+export const deleteTodo: RequestHandler = (req, res, next) => {
   const params = req.params as RequestParams;
   const { todoId } = params;
   todos = todos.filter((todoItem) => todoItem.id !== todoId);
@@ -55,6 +52,4 @@ router.delete('/todo/:todoId', (req, res, next) => {
     message: 'Deleted Todo',
     todos,
   });
-});
-
-export default router;
+};
