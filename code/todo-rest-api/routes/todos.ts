@@ -5,25 +5,32 @@ import { getDB } from "../helpers/db_client.ts";
 const router = new Router();
 
 interface Todo {
-  id: string;
+  id?: string;
   text: string;
 }
 
 let todos: Todo[] = [];
 
-router.get("/todos", (ctx) => {
-  ctx.response.body = { todos: todos };
+router.get("/todos", async (ctx) => {
+  const todos = await getDB().collection("todos").find();
+  const transformedTodos = await todos.map((todo) => {
+    return {
+      id: todo._id.toString(),
+      text: todo.text,
+    };
+  });
+  ctx.response.body = { todos: transformedTodos };
 });
 
 router.post("/todos", async (ctx) => {
   const body = await ctx.request.body();
   const data = await body.value;
   const newTodo: Todo = {
-    id: new Date().toISOString(),
     text: data.text,
   };
 
-  todos.push(newTodo);
+  const id = await getDB().collection("todos").insertOne(newTodo);
+  newTodo.id = id;
 
   ctx.response.body = { message: "Created todo!", todo: newTodo };
 });
