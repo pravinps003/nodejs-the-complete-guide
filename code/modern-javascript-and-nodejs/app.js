@@ -1,6 +1,6 @@
 import express from 'express';
 
-import resHandler from './response-handler.js';
+import { resHandler } from './response-handler.js';
 
 const app = express();
 
